@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl *)",
+      "Bash(python3 -c \"import json,sys;d=json.load\\(sys.stdin\\)['info'];t=d['description'];i=t.find\\('Getting'\\); print\\(t[i-200:i+7000]\\)\")"
+    ]
+  }
+}
