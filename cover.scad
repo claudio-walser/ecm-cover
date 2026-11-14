@@ -3,7 +3,8 @@ outerRadius = 2;
 
 
 width = 240;
-length = 270;
+length = 268;
+frontGap = 2; // needs to be 270 with length
 
 hoopRadius = 4.1;
 hoopLengthOffset = 25;
@@ -11,13 +12,13 @@ hoopWidthOffset = 36;
 hoopEdgeOffset = 6;
 
 
-pierceRadius = 4;
+pierceRadius = 2.5;
 pierceWidthCount = 10;
 pierceLengthCount = 6;
 pierceLengthOffset = 39;
-pierceWidthOffset = 34.5;
+pierceWidthOffset = 33;
 
-pierceWidthGap = 19;
+pierceWidthGap = 20;
 pierceLengthGap = 20;
 
 
@@ -46,7 +47,7 @@ module basePlate() {
 
 module hoopHoles() {
     // left front
-    translate([hoopEdgeOffset, hoopLengthOffset, -height/2]) {
+    translate([hoopEdgeOffset, hoopLengthOffset - frontGap, -height/2]) {
         hull() {
             cylinder(r=hoopRadius, h=height*2);
             translate([-20, 0, 0])
@@ -56,7 +57,7 @@ module hoopHoles() {
 
 
     // left back
-    translate([hoopEdgeOffset, length - hoopLengthOffset, -height/2]) {
+    translate([hoopEdgeOffset, length - hoopLengthOffset + (frontGap / 2), -height/2]) {
         hull() {
             cylinder(r=hoopRadius, h=height*2);
             translate([-20, 0, 0])
@@ -66,7 +67,7 @@ module hoopHoles() {
 
 
     // right front
-    translate([width - hoopEdgeOffset, hoopLengthOffset, -height/2]) {
+    translate([width - hoopEdgeOffset, hoopLengthOffset - frontGap, -height/2]) {
         hull() {
             cylinder(r=hoopRadius, h=height*2);
             translate([+20, 0, 0])
@@ -75,7 +76,7 @@ module hoopHoles() {
     }
     
     // right back
-    translate([width - hoopEdgeOffset, length - hoopLengthOffset, -height/2]) {
+    translate([width - hoopEdgeOffset, length - hoopLengthOffset + (frontGap / 2), -height/2]) {
         hull() {
             cylinder(r=hoopRadius, h=height*2);
             translate([+20, 0, 0])
@@ -107,7 +108,7 @@ module hoopHoles() {
 module pierceHoles() {
     widthGap = (width - (pierceWidthOffset * 2)) / (pierceWidthCount - 1);
     lengthGap = pierceLengthGap;
-    translate([pierceWidthOffset, pierceLengthOffset, -height/2]) {
+    translate([pierceWidthOffset, pierceLengthOffset + pierceRadius - frontGap, -height/2]) {
         for(column = [0 : pierceLengthCount - 1]) {
             for(row = [0 : pierceWidthCount - 1]) {
                 translate([widthGap * row, lengthGap * column, 0])
